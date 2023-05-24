@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Enums\UserTypes;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +14,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+                'name'    =>'Receptionist',
+                'email'   =>'receptionist@example.com',
+                'type'    =>UserTypes::Receptionist->value,
+                'password'=>bcrypt('password'),
+        ]);
+        User::factory()->create([
+                'name'    =>'Doctor',
+                'email'   =>'doctor@example.com',
+                'type'    =>UserTypes::Doctor->value,
+                'password'=>bcrypt('password'),
+        ]);
+        User::factory()->create([
+                'name'    =>'Lab Tech',
+                'email'   =>'lab@example.com',
+                'type'    =>UserTypes::LabTech->value,
+                'password'=>bcrypt('password'),
+        ]);
     }
 }
