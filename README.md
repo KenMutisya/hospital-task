@@ -7,7 +7,7 @@ A patient goes to a hospital for medical diagnosis. At the reception, the patien
 The doctor receives the laboratory report, adds the patient’s diagnosis and reccommended prescription.
 
 
-A medical report report is generated, detailing the patient’s lab test and results, dignosis and prescription. The patient is given the generated medical report.
+A medical report is generated, detailing the patient’s lab test and results, dignosis and prescription. The patient is given the generated medical report.
 
 
 Your task is to come up with a  small program that can be used to manage this process, from the time the patient walks in to the time that they leave the medical facility
@@ -47,6 +47,18 @@ npm install
 6. Run `php artisan migrate:fresh --seed` 
 
 7. Run `npm run dev`
+8. Use this credentials to test:
+```shell
+Receptionist
+ username: receptionist@example.com
+ password: password
+Doctor:
+ username: doctor@example.com
+ password: password
+Lab Tech:
+ username: lab@example.com
+ password: password
+```
 
 ## Running the tests
 
