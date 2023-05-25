@@ -4,6 +4,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\LabTechController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ReceptionistDashboardController;
+use App\Http\Controllers\ReportController;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,8 @@ Route::middleware([
         Route::get('/consult/{appointment}', [LabTechController::class, 'consult'])->name('consult');
 
     });
+
+    Route::get('report/{appointment}',ReportController::class)->name('report');
 
     Route::middleware('userdashboard',)->get('/dashboard', function () {
         return view('dashboard');

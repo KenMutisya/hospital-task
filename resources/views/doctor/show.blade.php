@@ -158,7 +158,8 @@
                                         </div>
                                         <div>
                                             <h3 class="text-sm font-medium text-gray-900">
-                                                <a href="#" class="focus:outline-none">
+                                                <a href="{{route('report',$appointment->id)}}"
+                                                   class="focus:outline-none">
                                                     <span class="absolute inset-0" aria-hidden="true"></span>
                                                     <span>Download Report</span>
                                                     <span aria-hidden="true"> &rarr;</span>

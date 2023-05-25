@@ -17,6 +17,10 @@ export default {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
         },
+        screens: {
+            print: {raw: 'print'},
+            screen: {raw: 'screen'},
+        },
     },
 
     plugins: [forms, typography],
