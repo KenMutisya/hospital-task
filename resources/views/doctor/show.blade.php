@@ -76,10 +76,66 @@
                         <div class="mt-10">
                             <div class="overflow-hidden rounded-lg bg-white shadow">
                                 <div class="px-4 py-5 sm:px-6">
-                                    Lab Report {{ $report->status }}
+                                    <div class="flex justify-between">
+                                        <div>
+                                            Lab Report(s)
+                                        </div>
+                                        <div>
+                                            @if($report->status === AppointmentStatus::PENDING->value)
+                                                <span class="inline-flex items-center rounded-md bg-orange-50 px-2
+                                                    py-1 text-xs font-medium text-orange-700 ring-1 ring-inset
+                                                    ring-orange-600/20">
+                                                        {{AppointmentStatus::PENDING->value}}
+                                                    </span>
+                                            @elseif($report->status === AppointmentStatus::IN_PROGRESS->value)
+                                                <span class="inline-flex items-center rounded-md bg-blue-50 px-2
+                                                    py-1 text-xs font-medium text-blue-700 ring-1 ring-inset
+                                                    ring-blue-600/20">
+                                                        {{AppointmentStatus::IN_PROGRESS->value}}
+                                                    </span>
+                                            @else
+                                                <span class="inline-flex items-center rounded-md bg-green-50 px-2
+                                                py-1 text-xs font-medium text-green-700 ring-1 ring-inset
+                                                ring-green-600/20">Done</span>
+                                            @endif
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:p-6">
-                                    {{ $report->diagonsis }}
+                                    @if(isset($report->diagonsis))
+                                        {{ $report->diagonsis }}
+                                    @else
+                                        <div class="text-center">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"
+                                                 stroke="currentColor" aria-hidden="true">
+                                                <path vector-effect="non-scaling-stroke" stroke-linecap="round"
+                                                      stroke-linejoin="round" stroke-width="2"
+                                                      d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                            </svg>
+                                            <h3 class="mt-2 text-sm font-semibold text-gray-900">The lab report is
+                                                yet to be filled.</h3>
+                                            <p class="mt-1 text-sm text-gray-500">You can check the progress by
+                                                clicking the button below.
+                                                .</p>
+                                            <div class="mt-6">
+                                                <button type="button"
+                                                        class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                         fill="currentColor" class="-ml-0.5 mr-1.5 h-5 w-5">
+                                                        <path fill-rule="evenodd"
+                                                              d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z"
+                                                              clip-rule="evenodd"/>
+                                                    </svg>
+
+                                                    Refresh
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    @endif
+
                                 </div>
                             </div>
 
@@ -87,38 +143,78 @@
                     @endforeach
                 </div>
                 <div class="w-1/2 ml-6">
-
-                    <form action="{{ route('doctor.store') }}" method="POST">
-                        @csrf
+                    @if(isset($appointment->diagonsis) && isset($appointment->prescription))
                         <div>
-                            <label for="comment" class="block text-sm font-medium leading-6 text-gray-900">Diagnosis</label>
-                            <div class="mt-2">
-                            <textarea rows="4" name="comment" id="comment"
-                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                            <h2 class="text-base font-semibold leading-6 text-gray-900">Consultation Done</h2>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Consultation for this patient is done.
+                            </p>
+                            <ul role="list" class="mt-6 grid grid-cols-1 gap-6 border-b border-t border-gray-200 py-6 sm:grid-cols-2"><li class="flow-root">
+                                    <div class="relative -m-2 flex items-center space-x-4 rounded-xl p-2 focus-within:ring-2 focus-within:ring-indigo-500 hover:bg-gray-50">
+                                        <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-lg bg-pink-500">
+                                            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-sm font-medium text-gray-900">
+                                                <a href="#" class="focus:outline-none">
+                                                    <span class="absolute inset-0" aria-hidden="true"></span>
+                                                    <span>Download Report</span>
+                                                    <span aria-hidden="true"> &rarr;</span>
+                                                </a>
+                                            </h3>
+                                            <p class="mt-1 text-sm text-gray-500">Donwload this report and give it to
+                                                the client to proceed.
+                                                .</p>
+                                        </div>
+                                    </div>
+                                </li></ul>
+                            <div class="mt-4 flex">
+                                <a href="{{ route('doctor.index') }}" class="text-sm font-medium text-indigo-600
+                                hover:text-indigo-500">
+                                    Or go to dashboard
+                                    <span aria-hidden="true"> &rarr;</span>
+                                </a>
                             </div>
                         </div>
+                    @else
+                        <form action="{{ route('doctor.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="appointment_id" value="{{ $appointment->id }}">
+                            <div>
+                                <label for="diagnosis" class="block text-sm font-medium leading-6
+                            text-gray-900">Diagnosis</label>
+                                <div class="mt-2">
+                            <textarea rows="4" name="diagnosis" id="diagnosis"
+                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                                </div>
+                            </div>
 
-                        <div class="mt-5">
-                            <label for="comment" class="block text-sm font-medium leading-6
+                            <div class="mt-5">
+                                <label for="prescription" class="block text-sm font-medium leading-6
                         text-gray-900">Prescription</label>
-                            <div class="mt-2">
-                            <textarea rows="4" name="comment" id="comment"
+                                <div class="mt-2">
+                            <textarea rows="4" name="prescription" id="prescription"
                                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="mt-3 flex justify-end">
-                            <button type="button"
-                                    class="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                Generate Medical Report &nbsp;
-                                <svg class="-mr-0.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd"
-                                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                          clip-rule="evenodd"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </form>
+                            <div class="mt-3 flex justify-end">
+                                <button type="submit"
+                                        class="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    Generate Medical Report &nbsp;
+                                    <svg class="-mr-0.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+                                         aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                              clip-rule="evenodd"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    @endif
+
                 </div>
             </div>
         </div>

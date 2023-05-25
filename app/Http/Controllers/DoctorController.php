@@ -34,6 +34,13 @@ class DoctorController extends Controller
 
     public function store(Request $request)
     {
+       $appointment = Appointment::find($request->appointment_id)->update([
+                'status'   =>AppointmentStatus::DONE->value,
+                'diagonsis'=>$request->diagnosis,
+                'prescription'=>$request->prescription,
+        ]);
+
+        return back();
     }
 
     public function show($id)
