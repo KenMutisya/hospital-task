@@ -12,7 +12,7 @@ class RedirectToDashboardMiddleware
     {
         return match ($request->user()->type) {
             UserTypes::Receptionist->value=>redirect()->route('receptionist.dashboard'),
-            UserTypes::Doctor->value=>redirect()->route('doctor.dashboard'),
+            UserTypes::Doctor->value=>redirect()->route('doctor.index'),
             UserTypes::LabTech->value=>redirect()->route('labtech.dashboard'),
             default=>$next($request)
         };

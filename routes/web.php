@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\LabTechController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ReceptionistDashboardController;
 use App\Models\Patient;
@@ -23,16 +25,19 @@ Route::middleware([
 
     });
 
-    Route::prefix('doctor')->group(function () {
-        Route::get('/', function () {
-            return view('doctor.dashboard');
-        })->name('doctor.dashboard');
+    Route::prefix('doctor')->name('doctor.')->group(function () {
+        Route::resource('/', DoctorController::class);
+        Route::get('/consult/{appointment}', [DoctorController::class, 'consult'])->name('consult');
+        Route::get('/request/{appointment}/labreport', [DoctorController::class, 'labreport'])->name('labreport');
     });
 
-    Route::prefix('labtech')->group(function () {
-        Route::get('/', function () {
-            return view('labtech.dashboard');
-        })->name('labtech.dashboard');
+    Route::prefix('labtech')->name('labtech.')->group(function () {
+        Route::resource('/', LabTechController::class)->names([
+                'index'=>'dashboard',
+                'store'=>'store',
+        ]);
+        Route::get('/consult/{appointment}', [LabTechController::class, 'consult'])->name('consult');
+
     });
 
     Route::middleware('userdashboard',)->get('/dashboard', function () {

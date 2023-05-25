@@ -18,6 +18,9 @@ return new class extends Migration {
             $table->string('ticket_number');
             $table->string('department')->nullable();
             $table->string('status')->default(AppointmentStatus::PENDING->value);
+            $table->string('diagonsis')->nullable();
+            $table->string('prescription')->nullable();
+            $table->string('parent_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

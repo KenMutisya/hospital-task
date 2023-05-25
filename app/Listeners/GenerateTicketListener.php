@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\PatientSavedEvent;
 use App\Models\Appointment;
+use App\Models\Enums\Departments;
 use App\Models\User;
 
 class GenerateTicketListener
@@ -21,9 +22,9 @@ class GenerateTicketListener
     {
         return Appointment::create([
                 'patient_id'      =>$event->patient->id,
-                'ticket_number'   =>random_int(100, 1000),
+                'ticket_number'   => 'DC-'.random_int(100, 1000),
                 'appointment_date'=>now()->addMinute(),
-                'department'      =>'consultation',
+                'department'      =>Departments::consultations->value,
         ]);
     }
 }
